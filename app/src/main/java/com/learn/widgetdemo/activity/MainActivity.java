@@ -1,8 +1,10 @@
-package com.learn.widgetdemo;
+package com.learn.widgetdemo.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.learn.widgetdemo.R;
 
 public class MainActivity extends AppCompatActivity {
 
