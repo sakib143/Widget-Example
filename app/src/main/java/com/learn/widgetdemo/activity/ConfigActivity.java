@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.RemoteViews;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.learn.widgetdemo.R;
+import com.learn.widgetdemo.WidgetService;
 
 
 public class ConfigActivity extends AppCompatActivity {
@@ -54,9 +56,15 @@ public class ConfigActivity extends AppCompatActivity {
 
         String buttonText = editTextButton.getText().toString();
 
+        Intent serviceIntent = new Intent(this, WidgetService.class);
+        serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+
         RemoteViews views = new RemoteViews(this.getPackageName(), R.layout.example_widget);
         views.setOnClickPendingIntent(R.id.btnPress, pendingIntent);
         views.setCharSequence(R.id.btnPress, "setText", buttonText);
+        views.setRemoteAdapter(R.id.example_widget_stack_view, serviceIntent);
+        views.setEmptyView(R.id.example_widget_stack_view, R.id.example_widget_empty_view);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
 
