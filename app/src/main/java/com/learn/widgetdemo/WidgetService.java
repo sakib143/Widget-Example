@@ -50,6 +50,11 @@ public class WidgetService  extends RemoteViewsService {
         public RemoteViews getViewAt(int position) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.item_widget);
             views.setTextViewText(R.id.example_widget_item_text, exampleData[position]);
+
+            Intent fillIntent = new Intent();
+            fillIntent.putExtra(ExampleAppWidgetProvider.EXTRA_ITEM_POSITION, position);
+            views.setOnClickFillInIntent(R.id.example_widget_item_text, fillIntent);
+
             SystemClock.sleep(500);
             return views;
         }
